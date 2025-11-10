@@ -1,0 +1,6 @@
+[submodule "angular-realworld-example-app"]
+	path = angular-realworld-example-app
+	url = https://github.com/AppDevFoundry/angular-realworld-example-app
+[submodule "node-express-realworld-example-app"]
+	path = node-express-realworld-example-app
+	url = https://github.com/AppDevFoundry/node-express-realworld-example-app
