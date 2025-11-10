@@ -4,3 +4,6 @@
 [submodule "node-express-realworld-example-app"]
 	path = node-express-realworld-example-app
 	url = https://github.com/AppDevFoundry/node-express-realworld-example-app
+[submodule "Conduit-SwiftUI"]
+	path = Conduit-SwiftUI
+	url = https://github.com/AppDevFoundry/Conduit-SwiftUI
