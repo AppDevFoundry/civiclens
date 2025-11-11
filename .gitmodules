@@ -7,3 +7,6 @@
 [submodule "Conduit-SwiftUI"]
 	path = Conduit-SwiftUI
 	url = https://github.com/AppDevFoundry/Conduit-SwiftUI
+[submodule "Conduit-Android-kotlin"]
+	path = Conduit-Android-kotlin
+	url = https://github.com/AppDevFoundry/Conduit-Android-kotlin
