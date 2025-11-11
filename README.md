@@ -6,7 +6,7 @@ A comprehensive multi-platform development playground featuring the [RealWorld](
 
 This repository combines four production-ready RealWorld implementations as git submodules:
 
-- **Web Frontend**: Angular application with modern best practices
+- **Web Frontend**: Next.js (React) application with TypeScript and SWR
 - **iOS Mobile App**: SwiftUI native iOS application
 - **Android Mobile App**: Kotlin native Android application
 - **Backend API**: Node.js/Express API with Prisma ORM
@@ -15,18 +15,35 @@ The RealWorld spec provides a standardized full-stack application that allows yo
 
 ## What's Included
 
-### [angular-realworld-example-app](./angular-realworld-example-app)
+### [next-realworld-example-app](./next-realworld-example-app)
 
-**Modern Angular Web Frontend**
+**Modern Next.js (React) Web Frontend**
 
 A production-ready web application featuring:
+- **Server-Side Rendering**: Next.js for SSR/SSG and optimal performance
+- **React with TypeScript**: Type-safe component development
+- **SWR Data Fetching**: Stale-while-revalidate pattern for efficient caching
 - **Authentication**: JWT-based login/signup with localStorage
 - **CRUD Operations**: Articles, comments, and user profiles
 - **Advanced Features**: Pagination, favoriting, following users, markdown rendering
-- **Routing**: Full SPA with Angular Router
-- **Best Practices**: Adheres to Angular Styleguide
+- **File-Based Routing**: Next.js automatic routing system
+- **Modern React Patterns**: Hooks, Context API, functional components
 
-**Tech Stack**: Angular, TypeScript, RxJS, HTML/SCSS
+**Tech Stack**: Next.js, React, TypeScript, SWR, Axios, Marked
+
+**Project Structure**:
+- `pages/` - Next.js file-based routing (10 page components)
+- `components/` - Reusable React components (30 components)
+  - `home/` - Homepage components
+  - `article/` - Article display and interaction
+  - `profile/` - User profile and auth forms
+  - `comment/` - Comment system
+  - `editor/` - Article editor
+  - `common/` - Shared UI components
+- `lib/` - Utilities and business logic (21 files)
+  - `types/` - TypeScript type definitions
+  - `context/` - React Context providers
+  - `utils/` - Helper functions and constants
 
 ### [Conduit-SwiftUI](./Conduit-SwiftUI)
 
@@ -97,9 +114,8 @@ A robust REST API server featuring:
 ### Prerequisites
 
 **For Web Development:**
-- **Node.js**: v18 or higher
-- **npm**: v9 or higher
-- **Angular CLI**: `npm install -g @angular/cli`
+- **Node.js**: v14 or higher (v18+ recommended)
+- **npm**: v7 or higher
 
 **For iOS Development:**
 - **macOS**: Monterey (12.0) or higher
@@ -157,19 +173,25 @@ npx nx serve api
 
 The API will be available at `http://localhost:3000`
 
-### 2. Web Frontend Setup (Angular)
+### 2. Web Frontend Setup (Next.js)
 
 ```bash
-cd angular-realworld-example-app
+cd next-realworld-example-app
 
 # Install dependencies
 npm install
 
 # Start the development server
-ng serve
+npm run dev
 ```
 
-The web application will be available at `http://localhost:4200`
+The web application will be available at `http://localhost:3000` (or `http://localhost:3001` if port 3000 is taken by the backend)
+
+**Configuration:**
+- The app connects to the public RealWorld demo API by default
+- To use your local backend:
+  1. Edit `lib/utils/constant.ts` and change `SERVER_BASE_URL` to match your backend (e.g., `http://localhost:3000/api`)
+  2. If running both frontend and backend locally, start Next.js on a different port: `PORT=3001 npm run dev`
 
 ### 3. iOS App Setup (SwiftUI)
 
@@ -257,8 +279,9 @@ open -a "Android Studio" .
 
 **Option 1: Local Backend + Web Frontend**
 1. Start the backend server (port 3000)
-2. Start the Angular dev server (port 4200)
-3. Navigate to `http://localhost:4200` in your browser
+2. Update `next-realworld-example-app/lib/utils/constant.ts` to point to `http://localhost:3000/api`
+3. Start Next.js on port 3001: `cd next-realworld-example-app && PORT=3001 npm run dev`
+4. Navigate to `http://localhost:3001` in your browser
 
 **Option 2: Local Backend + iOS App**
 1. Start the backend server (port 3000)
@@ -280,7 +303,7 @@ open -a "Android Studio" .
 
 ### Hot Reload / Live Development
 
-- **Angular**: Automatic browser refresh on file changes
+- **Next.js**: Fast Refresh - automatic updates on file changes without losing component state
 - **SwiftUI**: Use Xcode's live preview or rebuild (Cmd + R)
 - **Android**: Instant Run in Android Studio, or rebuild and reinstall
 - **Backend**: Restart required for changes (or use nodemon for auto-restart)
@@ -289,10 +312,19 @@ open -a "Android Studio" .
 
 **Web Frontend:**
 ```bash
-cd angular-realworld-example-app
-ng build --configuration production
-# Output in dist/ directory
+cd next-realworld-example-app
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Or export as static site (if no server-side features needed)
+# next export (requires additional configuration)
 ```
+
+Output in `.next/` directory. Deploy to Vercel, Netlify, or any Node.js hosting.
 
 **iOS App:**
 1. In Xcode, select Product > Archive
@@ -325,11 +357,19 @@ npm run build
 
 ```
 realworld-playground/
-├── angular-realworld-example-app/     # Web Frontend (Angular)
-│   ├── src/
-│   │   ├── app/                       # Application components
-│   │   ├── environments/              # Environment configs
-│   │   └── ...
+├── next-realworld-example-app/        # Web Frontend (Next.js/React)
+│   ├── pages/                         # Next.js pages (file-based routing)
+│   ├── components/                    # React components
+│   │   ├── home/                      # Homepage components
+│   │   ├── article/                   # Article components
+│   │   ├── profile/                   # Profile & auth
+│   │   ├── comment/                   # Comment system
+│   │   ├── editor/                    # Article editor
+│   │   └── common/                    # Shared components
+│   ├── lib/                           # Utilities and types
+│   │   ├── types/                     # TypeScript types
+│   │   ├── context/                   # React Context
+│   │   └── utils/                     # Helper functions
 │   └── package.json
 │
 ├── Conduit-SwiftUI/                   # iOS App (SwiftUI)
@@ -379,21 +419,24 @@ All frontends (web and mobile) consume these same standardized endpoints.
 
 ## Code Statistics
 
-- **Angular Frontend**: 60 source files (47 TypeScript, 11 HTML, 2 CSS/SCSS) + 6 config files
+- **Next.js Frontend**: 61 TypeScript/React files (10 pages, 30 components, 21 lib/utils) + 3 config files
 - **SwiftUI iOS App**: 54 Swift files + 1 Storyboard
 - **Android Kotlin App**: 51 Kotlin files + 49 XML layouts/resources + 4 Gradle files
 - **Node/Express Backend**: 32 TypeScript files + 8 Prisma files + 7 config files
-- **Total**: **261 source files** across web, iOS, Android, and backend platforms
+- **Total**: **262 source files** across web, iOS, Android, and backend platforms
 
 **Breakdown by language:**
-- TypeScript: 79 files (47 frontend + 32 backend)
+- TypeScript/TSX: 93 files (61 frontend + 32 backend)
 - Kotlin: 51 files
 - Swift: 54 files
-- HTML: 11 files
 - XML (Android): 49 files
-- CSS/SCSS: 2 files
 - Prisma/SQL: 8 files
 - Config files (JSON, Gradle): 21 files
+
+**Component Breakdown (Next.js):**
+- Pages: 10 (file-based routing)
+- React Components: 30 (modular, reusable)
+- Utilities/Types: 21 (TypeScript types, helpers, context)
 
 ## Learning Resources
 
@@ -403,7 +446,9 @@ All frontends (web and mobile) consume these same standardized endpoints.
 - **API Specification**: [RealWorld API Spec](https://realworld-docs.netlify.app/docs/specs/backend-specs/introduction)
 
 **Framework-Specific:**
-- **Angular Tutorial**: [Building Real World Angular Apps](https://thinkster.io/tutorials/building-real-world-angular-2-apps)
+- **Next.js Docs**: [Next.js Documentation](https://nextjs.org/docs)
+- **React Docs**: [React Documentation](https://react.dev/)
+- **SWR Docs**: [SWR - React Hooks for Data Fetching](https://swr.vercel.app/)
 - **SwiftUI Docs**: [Apple SwiftUI Documentation](https://developer.apple.com/documentation/swiftui/)
 - **Kotlin Android Docs**: [Android Developers - Kotlin](https://developer.android.com/kotlin)
 - **Android MVVM Guide**: [Guide to app architecture](https://developer.android.com/topic/architecture)
@@ -418,12 +463,24 @@ All frontends (web and mobile) consume these same standardized endpoints.
 - **Port conflicts**: Change the port in backend configuration
 - **JWT errors**: Ensure `JWT_SECRET` is set in `.env`
 
-### Web Frontend Issues
+### Web Frontend Issues (Next.js)
 
-- **API connection errors**: Ensure backend is running on port 3000
-- **CORS errors**: Check backend CORS configuration
-- **Module not found**: Delete `node_modules` and run `npm install`
-- **Build errors**: Clear Angular cache with `ng cache clean`
+- **API connection errors**:
+  - Verify `SERVER_BASE_URL` in `lib/utils/constant.ts`
+  - Ensure backend is running and accessible
+  - Check for CORS configuration on the backend
+- **Port conflicts**:
+  - If port 3000 is in use, start Next.js on a different port: `PORT=3001 npm run dev`
+- **Module not found**:
+  - Delete `node_modules` and `.next` folders
+  - Run `npm install` again
+- **Build errors**:
+  - Clear Next.js cache: delete `.next/` folder
+  - Check TypeScript errors: `npx tsc --noEmit`
+  - Ensure all dependencies are installed
+- **Fast Refresh not working**:
+  - Ensure you're exporting React components properly
+  - Check browser console for errors
 
 ### iOS App Issues
 
@@ -465,16 +522,18 @@ All frontends (web and mobile) consume these same standardized endpoints.
 
 ## Platform Comparison
 
-| Feature | Web (Angular) | iOS (SwiftUI) | Android (Kotlin) | Backend |
-|---------|--------------|---------------|------------------|---------|
-| Language | TypeScript | Swift | Kotlin | TypeScript |
-| UI Framework | Angular | SwiftUI | Material Design / XML | N/A |
-| State Management | RxJS | Combine + ViewModels | LiveData + ViewModels | N/A |
-| Routing | Angular Router | NavigationStack | Jetpack Navigation | Express Router |
+| Feature | Web (Next.js/React) | iOS (SwiftUI) | Android (Kotlin) | Backend |
+|---------|---------------------|---------------|------------------|---------|
+| Language | TypeScript/TSX | Swift | Kotlin | TypeScript |
+| UI Framework | React + Next.js | SwiftUI | Material Design / XML | N/A |
+| State Management | React Context + SWR | Combine + ViewModels | LiveData + ViewModels | N/A |
+| Routing | Next.js File-based | NavigationStack | Jetpack Navigation | Express Router |
 | Storage | localStorage | AppStorage | SharedPreferences | PostgreSQL/MySQL/SQLite |
-| HTTP Client | HttpClient | URLSession | Retrofit / OkHttp | Express |
+| HTTP Client | Axios + SWR | URLSession | Retrofit / OkHttp | Express |
 | Architecture | Component-based | MVVM | MVVM | REST API |
-| Async Pattern | Observables | Combine | Coroutines | Promises/Async-Await |
+| Async Pattern | Promises/Async-Await | Combine | Coroutines | Promises/Async-Await |
+| Rendering | SSR/SSG/CSR | Native | Native | N/A |
+| Data Fetching | SWR (stale-while-revalidate) | Combine Publishers | Coroutines + LiveData | Prisma ORM |
 
 ## Contributing
 
@@ -489,14 +548,15 @@ This playground is meant for learning and experimentation. Feel free to:
 
 This playground is perfect for:
 
-1. **Learning Full-Stack Development**: See how the same features are implemented across web, iOS, Android, and backend
-2. **Comparing Frameworks**: Compare Angular vs SwiftUI vs Kotlin, or TypeScript vs Swift vs Kotlin
+1. **Learning Full-Stack Development**: See how the same features are implemented across web (React/Next.js), iOS, Android, and backend
+2. **Comparing Frameworks**: Compare React/Next.js vs SwiftUI vs Kotlin, study different approaches to state management and routing
 3. **Cross-Platform Mobile Development**: Study iOS (SwiftUI) and Android (Kotlin) implementations side-by-side
 4. **API Integration Practice**: Connect multiple different frontends to the same backend API
-5. **Architecture Studies**: MVVM in iOS and Android, component architecture in Angular, REST API design
-6. **Language Learning**: Work with TypeScript, Swift, and Kotlin in realistic contexts
-7. **Interview Preparation**: Work with production-ready code patterns across multiple platforms
-8. **Portfolio Projects**: Fork and customize for your own multi-platform projects
+5. **Architecture Studies**: Component-based architecture in React, MVVM in iOS and Android, REST API design
+6. **Modern Web Patterns**: Learn SSR/SSG with Next.js, data fetching with SWR, TypeScript best practices
+7. **Language Learning**: Work with TypeScript/TSX, Swift, and Kotlin in realistic contexts
+8. **Interview Preparation**: Work with production-ready code patterns across multiple platforms
+9. **Portfolio Projects**: Fork and customize for your own multi-platform projects
 
 ## License
 
@@ -506,13 +566,16 @@ All submodules are MIT licensed. See individual repositories for details.
 
 **Main Repositories:**
 - **RealWorld GitHub**: [https://github.com/gothinkster/realworld](https://github.com/gothinkster/realworld)
-- **Angular RealWorld**: [https://github.com/gothinkster/angular-realworld-example-app](https://github.com/gothinkster/angular-realworld-example-app)
+- **Next.js RealWorld**: [https://github.com/reck1ess/next-realworld-example-app](https://github.com/reck1ess/next-realworld-example-app)
 - **SwiftUI Conduit**: [https://github.com/girish54321/Conduit-SwiftUI](https://github.com/girish54321/Conduit-SwiftUI)
 - **Android Kotlin Conduit**: [https://github.com/gothinkster/kotlin-realworld-example-app](https://github.com/gothinkster/kotlin-realworld-example-app)
 - **Node/Express RealWorld**: [https://github.com/anishkny/node-express-realworld-example-app](https://github.com/anishkny/node-express-realworld-example-app)
 
 **Framework Documentation:**
-- **Angular Docs**: [https://angular.io/docs](https://angular.io/docs)
+- **Next.js Docs**: [https://nextjs.org/docs](https://nextjs.org/docs)
+- **React Docs**: [https://react.dev/](https://react.dev/)
+- **TypeScript Docs**: [https://www.typescriptlang.org/docs/](https://www.typescriptlang.org/docs/)
+- **SWR Docs**: [https://swr.vercel.app/](https://swr.vercel.app/)
 - **SwiftUI Docs**: [https://developer.apple.com/documentation/swiftui/](https://developer.apple.com/documentation/swiftui/)
 - **Kotlin Docs**: [https://kotlinlang.org/docs/home.html](https://kotlinlang.org/docs/home.html)
 - **Android Jetpack**: [https://developer.android.com/jetpack](https://developer.android.com/jetpack)
@@ -524,4 +587,4 @@ All submodules are MIT licensed. See individual repositories for details.
 
 ---
 
-**A comprehensive multi-platform playground featuring 260+ source files across web, iOS, Android, and backend - perfect for learning modern full-stack development**
+**A comprehensive multi-platform playground featuring 260+ source files across Next.js (React), iOS (SwiftUI), Android (Kotlin), and Node.js backend - perfect for learning modern full-stack development**

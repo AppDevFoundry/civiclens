@@ -1,6 +1,3 @@
-[submodule "angular-realworld-example-app"]
-	path = angular-realworld-example-app
-	url = https://github.com/AppDevFoundry/angular-realworld-example-app
 [submodule "node-express-realworld-example-app"]
 	path = node-express-realworld-example-app
 	url = https://github.com/AppDevFoundry/node-express-realworld-example-app
@@ -10,3 +7,6 @@
 [submodule "Conduit-Android-kotlin"]
 	path = Conduit-Android-kotlin
 	url = https://github.com/AppDevFoundry/Conduit-Android-kotlin
+[submodule "next-realworld-example-app"]
+	path = next-realworld-example-app
+	url = https://github.com/AppDevFoundry/next-realworld-example-app
