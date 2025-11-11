@@ -1,12 +1,16 @@
 [submodule "civiclens-web"]
 	path = civiclens-web
 	url = git@github.com:AppDevFoundry/civiclens-web.git
+	branch = main
 [submodule "civiclens-ios"]
 	path = civiclens-ios
 	url = git@github.com:AppDevFoundry/civiclens-ios.git
+	branch = main
 [submodule "civiclens-android"]
 	path = civiclens-android
 	url = git@github.com:AppDevFoundry/civiclens-android.git
+	branch = main
 [submodule "civiclens-api"]
 	path = civiclens-api
 	url = git@github.com:AppDevFoundry/civiclens-api.git
+	branch = main
