@@ -1,12 +1,12 @@
-[submodule "node-express-realworld-example-app"]
-	path = node-express-realworld-example-app
-	url = https://github.com/AppDevFoundry/node-express-realworld-example-app
-[submodule "Conduit-SwiftUI"]
-	path = Conduit-SwiftUI
-	url = https://github.com/AppDevFoundry/Conduit-SwiftUI
-[submodule "Conduit-Android-kotlin"]
-	path = Conduit-Android-kotlin
-	url = https://github.com/AppDevFoundry/Conduit-Android-kotlin
-[submodule "next-realworld-example-app"]
-	path = next-realworld-example-app
-	url = https://github.com/AppDevFoundry/next-realworld-example-app
+[submodule "civiclens-web"]
+	path = civiclens-web
+	url = git@github.com:AppDevFoundry/civiclens-web.git
+[submodule "civiclens-ios"]
+	path = civiclens-ios
+	url = git@github.com:AppDevFoundry/civiclens-ios.git
+[submodule "civiclens-android"]
+	path = civiclens-android
+	url = git@github.com:AppDevFoundry/civiclens-android.git
+[submodule "civiclens-api"]
+	path = civiclens-api
+	url = git@github.com:AppDevFoundry/civiclens-api.git

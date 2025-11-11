@@ -1,21 +1,23 @@
-# RealWorld Playground
+# CivicLens
 
-A comprehensive multi-platform development playground featuring the [RealWorld](https://github.com/gothinkster/realworld) "Conduit" application - a Medium.com clone that demonstrates real-world patterns and best practices across web, iOS, Android, and backend.
+A multi-platform Congressional legislation tracking application built on the [RealWorld](https://github.com/gothinkster/realworld) specification. CivicLens transforms the "Conduit" social blogging platform into a civic engagement tool that connects citizens with their government by making federal legislation accessible and trackable.
 
 ## Overview
 
-This repository combines four production-ready RealWorld implementations as git submodules:
+This repository combines four platform implementations as git submodules:
 
 - **Web Frontend**: Next.js (React) application with TypeScript and SWR
 - **iOS Mobile App**: SwiftUI native iOS application
 - **Android Mobile App**: Kotlin native Android application
 - **Backend API**: Node.js/Express API with Prisma ORM
 
-The RealWorld spec provides a standardized full-stack application that allows you to explore, learn, and experiment with different technologies in a realistic context. With **260+ source files** across web, iOS, Android, and backend, this playground offers a comprehensive learning environment for modern full-stack development.
+Built on the battle-tested RealWorld architecture, CivicLens will integrate with the Congress.gov API to transform the article feed into a bill tracker, tags into policy topics, and user profiles into congressional member profiles. With **260+ source files** across web, iOS, Android, and backend, this project demonstrates real-world patterns and best practices for modern full-stack civic tech development.
+
+> **Note**: This project is based on RealWorld implementations and will be adapted for Congressional legislation tracking. See [PROJECT_OVERVIEW_AND_ROADMAP.md](./PROJECT_OVERVIEW_AND_ROADMAP.md) for the complete vision and development roadmap.
 
 ## What's Included
 
-### [next-realworld-example-app](./next-realworld-example-app)
+### [civiclens-web](./civiclens-web)
 
 **Modern Next.js (React) Web Frontend**
 
@@ -45,7 +47,7 @@ A production-ready web application featuring:
   - `context/` - React Context providers
   - `utils/` - Helper functions and constants
 
-### [Conduit-SwiftUI](./Conduit-SwiftUI)
+### [civiclens-ios](./civiclens-ios)
 
 **Native iOS Mobile Application**
 
@@ -69,7 +71,7 @@ A fully-featured iOS app built with SwiftUI:
 - `Views/` - Reusable UI components
 - `Helper/` - Utility functions and constants
 
-### [Conduit-Android-kotlin](./Conduit-Android-kotlin)
+### [civiclens-android](./civiclens-android)
 
 **Native Android Mobile Application**
 
@@ -95,7 +97,7 @@ A fully-featured Android app built with Kotlin:
   - `model/` - API request/response models
   - `ConduitClient.kt` - API client interface
 
-### [node-express-realworld-example-app](./node-express-realworld-example-app)
+### [civiclens-api](./civiclens-api)
 
 **Production-Ready Backend API**
 
@@ -136,7 +138,7 @@ A robust REST API server featuring:
 
 ```bash
 # Clone the repository with all submodules
-git clone --recurse-submodules https://github.com/AppDevFoundry/realworld-playground.git
+git clone --recurse-submodules https://github.com/AppDevFoundry/civiclens.git
 
 # Or if already cloned, initialize submodules
 git submodule update --init --recursive
@@ -147,7 +149,7 @@ git submodule update --init --recursive
 ### 1. Backend Setup (Required for all frontends)
 
 ```bash
-cd node-express-realworld-example-app
+cd civiclens-api
 
 # Install dependencies
 npm install
@@ -176,7 +178,7 @@ The API will be available at `http://localhost:3000`
 ### 2. Web Frontend Setup (Next.js)
 
 ```bash
-cd next-realworld-example-app
+cd civiclens-web
 
 # Install dependencies
 npm install
@@ -196,7 +198,7 @@ The web application will be available at `http://localhost:3000` (or `http://loc
 ### 3. iOS App Setup (SwiftUI)
 
 ```bash
-cd Conduit-SwiftUI
+cd civiclens-ios
 
 # Open the project in Xcode
 open MyMedium.xcodeproj
@@ -213,7 +215,7 @@ open MyMedium.xcodeproj
 ### 4. Android App Setup (Kotlin)
 
 ```bash
-cd Conduit-Android-kotlin
+cd civiclens-android
 
 # Open the project in Android Studio
 # On macOS/Linux:
@@ -279,13 +281,13 @@ open -a "Android Studio" .
 
 **Option 1: Local Backend + Web Frontend**
 1. Start the backend server (port 3000)
-2. Update `next-realworld-example-app/lib/utils/constant.ts` to point to `http://localhost:3000/api`
-3. Start Next.js on port 3001: `cd next-realworld-example-app && PORT=3001 npm run dev`
+2. Update `civiclens-web/lib/utils/constant.ts` to point to `http://localhost:3000/api`
+3. Start Next.js on port 3001: `cd civiclens-web && PORT=3001 npm run dev`
 4. Navigate to `http://localhost:3001` in your browser
 
 **Option 2: Local Backend + iOS App**
 1. Start the backend server (port 3000)
-2. Update the API base URL in `Conduit-SwiftUI/MyMedium/Helper/AppConst.swift`
+2. Update the API base URL in `civiclens-ios/MyMedium/Helper/AppConst.swift`
 3. Run the iOS app from Xcode
 4. The app will connect to your local backend
 
@@ -312,7 +314,7 @@ open -a "Android Studio" .
 
 **Web Frontend:**
 ```bash
-cd next-realworld-example-app
+cd civiclens-web
 
 # Build for production
 npm run build
@@ -333,7 +335,7 @@ Output in `.next/` directory. Deploy to Vercel, Netlify, or any Node.js hosting.
 
 **Android App:**
 ```bash
-cd Conduit-Android-kotlin
+cd civiclens-android
 
 # Build release APK
 ./gradlew assembleRelease
@@ -348,7 +350,7 @@ Or in Android Studio: Build > Generate Signed Bundle / APK
 
 **Backend:**
 ```bash
-cd node-express-realworld-example-app
+cd civiclens-api
 npm run build
 # Deploy with: npm ci && npx prisma migrate deploy && node dist/api/main.js
 ```
@@ -356,8 +358,8 @@ npm run build
 ## Project Structure
 
 ```
-realworld-playground/
-├── next-realworld-example-app/        # Web Frontend (Next.js/React)
+civiclens/
+├── civiclens-web/                     # Web Frontend (Next.js/React)
 │   ├── pages/                         # Next.js pages (file-based routing)
 │   ├── components/                    # React components
 │   │   ├── home/                      # Homepage components
@@ -372,7 +374,7 @@ realworld-playground/
 │   │   └── utils/                     # Helper functions
 │   └── package.json
 │
-├── Conduit-SwiftUI/                   # iOS App (SwiftUI)
+├── civiclens-ios/                     # iOS App (SwiftUI)
 │   ├── MyMedium/
 │   │   ├── App/                       # App entry & screens
 │   │   ├── GlobalState/               # ViewModels (MVVM)
@@ -382,7 +384,7 @@ realworld-playground/
 │   │   └── Helper/                    # Utilities
 │   └── MyMedium.xcodeproj
 │
-├── Conduit-Android-kotlin/            # Android App (Kotlin)
+├── civiclens-android/                 # Android App (Kotlin)
 │   ├── app/                           # Main Android module
 │   │   └── src/main/java/
 │   │       ├── ui/                    # Fragments & ViewModels
@@ -393,13 +395,14 @@ realworld-playground/
 │   │       └── model/                 # API models
 │   └── build.gradle
 │
-├── node-express-realworld-example-app/ # Backend (Node/Express/Prisma)
+├── civiclens-api/                     # Backend (Node/Express/Prisma)
 │   ├── src/
 │   │   ├── api/                       # API routes and controllers
 │   │   ├── prisma/                    # Database schema and migrations
 │   │   └── ...
 │   └── package.json
 │
+├── PROJECT_OVERVIEW_AND_ROADMAP.md    # CivicLens vision and roadmap
 └── README.md                          # This file
 ```
 
@@ -546,17 +549,17 @@ This playground is meant for learning and experimentation. Feel free to:
 
 ## Use Cases
 
-This playground is perfect for:
+This project is perfect for:
 
-1. **Learning Full-Stack Development**: See how the same features are implemented across web (React/Next.js), iOS, Android, and backend
-2. **Comparing Frameworks**: Compare React/Next.js vs SwiftUI vs Kotlin, study different approaches to state management and routing
-3. **Cross-Platform Mobile Development**: Study iOS (SwiftUI) and Android (Kotlin) implementations side-by-side
-4. **API Integration Practice**: Connect multiple different frontends to the same backend API
-5. **Architecture Studies**: Component-based architecture in React, MVVM in iOS and Android, REST API design
-6. **Modern Web Patterns**: Learn SSR/SSG with Next.js, data fetching with SWR, TypeScript best practices
-7. **Language Learning**: Work with TypeScript/TSX, Swift, and Kotlin in realistic contexts
-8. **Interview Preparation**: Work with production-ready code patterns across multiple platforms
-9. **Portfolio Projects**: Fork and customize for your own multi-platform projects
+1. **Civic Tech Development**: Build tools that connect citizens with government data and promote transparency
+2. **Learning Full-Stack Development**: See how the same features are implemented across web (React/Next.js), iOS, Android, and backend
+3. **Comparing Frameworks**: Compare React/Next.js vs SwiftUI vs Kotlin, study different approaches to state management and routing
+4. **Cross-Platform Mobile Development**: Study iOS (SwiftUI) and Android (Kotlin) implementations side-by-side
+5. **API Integration Practice**: Integrate with Congress.gov API and other government data sources
+6. **Architecture Studies**: Component-based architecture in React, MVVM in iOS and Android, REST API design
+7. **Modern Web Patterns**: Learn SSR/SSG with Next.js, data fetching with SWR, TypeScript best practices
+8. **Language Learning**: Work with TypeScript/TSX, Swift, and Kotlin in realistic contexts
+9. **Portfolio Projects**: Build civic engagement apps that make government more accessible
 
 ## License
 
@@ -587,4 +590,4 @@ All submodules are MIT licensed. See individual repositories for details.
 
 ---
 
-**A comprehensive multi-platform playground featuring 260+ source files across Next.js (React), iOS (SwiftUI), Android (Kotlin), and Node.js backend - perfect for learning modern full-stack development**
+**A multi-platform Congressional legislation tracker built on RealWorld architecture, featuring 260+ source files across Next.js (React), iOS (SwiftUI), Android (Kotlin), and Node.js backend - transforming civic engagement through accessible government data**
